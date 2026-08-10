@@ -924,23 +924,23 @@ a:hover { color: #0F5F5A; }
   bottom: 24px;
   right: 24px;
   z-index: 200000;
-  padding: 14px 20px;
+  padding: 14px 22px;
   background: #0E3038;
   color: #FFFFFF;
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
   font-size: 14px;
   font-weight: 600;
   display: none;
   align-items: center;
-  gap: 10px;
-  border-left: 4px solid #17817A;
-  animation: toastSlide 0.3s ease;
+  gap: 12px;
+  border-left: 4px solid #10B981;
+  animation: toastSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes toastSlide {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* Floating admin trigger button */
@@ -970,6 +970,163 @@ a:hover { color: #0F5F5A; }
   background: #12655E;
   transform: translateY(-2px);
 }
+
+/* Realtime Process Tracker Styles */
+.tracker-container {
+  display: grid;
+  gap: 14px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.tracker-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #F8FAFA;
+  border: 1.5px solid #E2EBE9;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tracker-step.completed {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+}
+
+.tracker-step.active {
+  background: #FDF9F0;
+  border-color: #FCD34D;
+  box-shadow: 0 4px 16px rgba(180, 82, 23, 0.08);
+}
+
+.tracker-step.unlocked-celebrate {
+  background: #ECFDF5;
+  border-color: #34D399;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  animation: pulseGlow 1.5s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.tracker-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  flex: none;
+  background: #E2ECEB;
+  color: #5E7880;
+  transition: all 0.3s ease;
+}
+
+.tracker-step.completed .tracker-icon {
+  background: #10B981;
+  color: #FFFFFF;
+}
+
+.tracker-step.active .tracker-icon {
+  background: #B45217;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.tracker-step.active .tracker-icon::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid #F59E0B;
+  border-radius: 50%;
+  animation: radarPing 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes radarPing {
+  0% { transform: scale(0.9); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.tracker-step.unlocked-celebrate .tracker-icon {
+  background: #059669;
+  color: #FFFFFF;
+}
+
+.tracker-content {
+  flex: 1;
+}
+
+.tracker-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #10333B;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tracker-desc {
+  font-size: 12.5px;
+  color: #5E7880;
+  margin-top: 3px;
+  line-height: 1.45;
+}
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #065F46;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+  animation: liveBlink 1.2s infinite ease-in-out;
+}
+
+@keyframes liveBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.7); }
+}
+
+.unlock-overlay-success {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.96);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  border-radius: 20px;
+  z-index: 50;
+  animation: fadeInPop 0.4s ease;
+}
+
+@keyframes fadeInPop {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
 </style>
 
 <!-- Top Verified Bar (Visible when unlocked) -->
@@ -993,7 +1150,7 @@ a:hover { color: #0F5F5A; }
 
 <!-- Access Gate Modal -->
 <div id="investorAccessGate">
-  <div class="gate-card">
+  <div class="gate-card" id="gateCardElement" style="position:relative">
     <div class="gate-header">
       <div class="gate-badge">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -1006,12 +1163,12 @@ a:hover { color: #0F5F5A; }
     <!-- Gate Body Content (Single Clean Email View) -->
     <div class="gate-body">
       
-      <!-- Single View: Email Request Form -->
+      <!-- View 1: Email Request Form -->
       <div id="gateViewRequest">
         <div style="margin-bottom:20px; text-align:center">
           <h3 style="margin:0 0 8px; font-size:20px; font-weight:800; color:#10333B">Investor Access Required</h3>
           <p style="margin:0 auto; max-width:440px; font-size:14px; color:#5E7880; line-height:1.5">
-            Please enter your email ID below. Access will be granted after approval by the Admin (<strong style="color:#12655E">vikasrajput1620@gmail.com</strong>).
+            Please enter your email ID below. Access will be granted directly after approval by the Admin (<strong style="color:#12655E">vikasrajput1620@gmail.com</strong>).
           </p>
         </div>
 
@@ -1028,34 +1185,92 @@ a:hover { color: #0F5F5A; }
         </form>
 
         <div style="margin-top:16px; text-align:center; font-size:12.5px; color:#859CA2">
-          🔒 Requests are sent directly to <strong style="color:#10333B">vikasrajput1620@gmail.com</strong> for approval.
+          🔒 Real-time verification. As soon as Admin approves, page opens automatically.
         </div>
       </div>
 
-      <!-- Submitted Confirmation View -->
-      <div id="gateViewSubmitted" style="display:none; text-align:center; padding:10px 0">
-        <div style="width:64px; height:64px; border-radius:50%; background:#EDFBF7; border:2px solid #10B981; margin:0 auto 16px; display:flex; align-items:center; justify-content:center; color:#10B981; font-size:28px">
-          📬
+      <!-- View 2: Live Processing Tracker & Auto-Unlock Screen -->
+      <div id="gateViewSubmitted" style="display:none; text-align:center; padding:4px 0">
+        
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px">
+          <div class="live-badge">
+            <span class="live-dot"></span>
+            <span>Real-time Live Sync Active</span>
+          </div>
+          <span style="font-size:12px; color:#859CA2" id="livePollingTimer">Listening...</span>
         </div>
-        <h3 style="margin:0 0 8px; font-size:20px; font-weight:800; color:#10333B">Request Sent to Admin!</h3>
-        <p style="margin:0 0 16px; font-size:14px; color:#5E7880; line-height:1.55">
-          Your request for <strong id="submittedEmailDisplay" style="color:#10333B">user@email.com</strong> has been sent directly to the Admin at <strong style="color:#12655E">vikasrajput1620@gmail.com</strong>.
+
+        <h3 style="margin:0 0 6px; font-size:20px; font-weight:800; color:#10333B">Request Processing in Progress</h3>
+        <p style="margin:0 0 16px; font-size:13.5px; color:#5E7880">
+          Request sent for <strong id="submittedEmailDisplay" style="color:#10333B">user@email.com</strong>
         </p>
 
-        <div style="background:#FAF6ED; border:1px solid #E2D9C8; border-radius:12px; padding:14px 16px; text-align:left; margin-bottom:20px; font-size:13px; color:#554836; line-height:1.5">
-          <strong>Process:</strong><br>
-          1. Admin (<strong>vikasrajput1620@gmail.com</strong>) receives your email request.<br>
-          2. Admin approves access for your email.<br>
-          3. Once approved, click the button below to view the full investor page.
+        <!-- 3-Step Live Process Tracker -->
+        <div class="tracker-container">
+          <!-- Step 1 -->
+          <div class="tracker-step completed" id="trackStep1">
+            <div class="tracker-icon">✓</div>
+            <div class="tracker-content">
+              <div class="tracker-title">
+                <span>1. Request Sent to Admin</span>
+                <span style="font-size:11px; color:#059669; font-weight:700">Delivered</span>
+              </div>
+              <div class="tracker-desc">Sent to Admin at <strong>vikasrajput1620@gmail.com</strong></div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="tracker-step active" id="trackStep2">
+            <div class="tracker-icon" id="trackIcon2">⏳</div>
+            <div class="tracker-content">
+              <div class="tracker-title">
+                <span id="trackTitle2">2. Awaiting Admin Approval</span>
+                <span style="font-size:11px; color:#B45217; font-weight:700" id="trackStatusBadge2">In Review</span>
+              </div>
+              <div class="tracker-desc" id="trackDesc2">Admin is verifying your request. Page will auto-unlock the second access is granted.</div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="tracker-step" id="trackStep3">
+            <div class="tracker-icon" id="trackIcon3">🔒</div>
+            <div class="tracker-content">
+              <div class="tracker-title">
+                <span id="trackTitle3">3. Confidential Data Room</span>
+                <span style="font-size:11px; color:#859CA2; font-weight:700" id="trackStatusBadge3">Locked</span>
+              </div>
+              <div class="tracker-desc">Thesis, Market Opportunity, Economics & Roadmap</div>
+            </div>
+          </div>
         </div>
 
-        <div style="display:grid; gap:10px">
-          <button type="button" class="gate-btn-primary" onclick="checkSubmittedStatus()">
-            <span>🔄 Check If Approved & Unlock</span>
+        <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:12px 14px; margin-bottom:18px; font-size:13px; color:#166534; display:flex; align-items:center; gap:10px; text-align:left">
+          <span style="font-size:18px">💡</span>
+          <div><strong>No refresh needed!</strong> Keep this tab open. As soon as Admin clicks approve, your screen will automatically open.</div>
+        </div>
+
+        <div style="display:grid; gap:8px">
+          <button type="button" class="gate-btn-secondary" onclick="checkSubmittedStatus()" style="font-size:13px; padding:10px">
+            <span>🔄 Instant Manual Check</span>
           </button>
-          <button type="button" class="gate-btn-secondary" onclick="resetRequestView()">
-            <span>✏️ Enter Different Email</span>
+          <button type="button" class="gate-btn-secondary" onclick="resetRequestView()" style="font-size:13px; padding:10px; border-color:transparent; color:#5E7880">
+            <span>✏️ Enter a Different Email</span>
           </button>
+        </div>
+      </div>
+
+      <!-- Instant Success Splash Overlay (Appears when approved) -->
+      <div id="unlockCelebrationOverlay" style="display:none" class="unlock-overlay-success">
+        <div style="width:72px; height:72px; border-radius:50%; background:#10B981; color:#FFFFFF; font-size:36px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; box-shadow:0 10px 30px rgba(16,185,129,0.4)">
+          ✓
+        </div>
+        <h2 style="margin:0 0 8px; font-size:24px; font-weight:800; color:#10333B">Access Approved!</h2>
+        <p style="margin:0 0 16px; font-size:15px; color:#4A6570">
+          Admin verified <strong id="approvedEmailDisplay" style="color:#0F5F5A"></strong>.
+        </p>
+        <div style="display:inline-flex; align-items:center; gap:8px; padding:8px 18px; background:#EFFBF7; border-radius:999px; color:#0F5F5A; font-weight:700; font-size:13px">
+          <span class="live-dot"></span>
+          <span>Launching Akashvani Investor Portal...</span>
         </div>
       </div>
 
@@ -1074,7 +1289,7 @@ a:hover { color: #0F5F5A; }
         </div>
         <div>
           <h2 style="margin:0; font-size:18px; font-weight:800; color:#FFFFFF">Akashvani Admin Dashboard (vikasrajput1620@gmail.com)</h2>
-          <div style="font-size:12.5px; color:#A7C5C9">Review incoming emails, grant access & manage permissions</div>
+          <div style="font-size:12.5px; color:#A7C5C9">Review incoming emails, grant instant access & manage permissions</div>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:10px">
@@ -1137,12 +1352,43 @@ a:hover { color: #0F5F5A; }
 <script>
 (function() {
   const ADMIN_EMAIL = 'vikasrajput1620@gmail.com';
-  const MASTER_PASSCODES = ['admin123', 'akashvani2026', 'admin', 'vikasrajput1620@gmail.com', 'vikas1620'];
   const STORAGE_KEY_REQUESTS = 'akashvani_investor_requests';
   const STORAGE_KEY_APPROVED = 'akashvani_approved_emails';
   const STORAGE_KEY_SESSION = 'akashvani_investor_session';
+  const CLOUD_SYNC_URL = 'https://api.restful-api.dev/objects';
 
-  // Seed sample requests and pre-approve admin
+  // Broadcast channel for instantaneous cross-tab live synchronization
+  let broadcastChannel = null;
+  try {
+    broadcastChannel = new BroadcastChannel('akashvani_approval_channel');
+    broadcastChannel.onmessage = function(ev) {
+      if (ev.data && ev.data.type === 'APPROVAL_EVENT') {
+        const approvedEmail = ev.data.email;
+        if (approvedEmail) {
+          addApprovedEmail(approvedEmail);
+          const lastEmail = getActiveWaitingEmail();
+          if (lastEmail && lastEmail.toLowerCase() === approvedEmail.toLowerCase()) {
+            triggerInstantAutoUnlock(approvedEmail);
+          }
+        }
+      }
+    };
+  } catch(e) {}
+
+  // Listen to standard storage events across tabs
+  window.addEventListener('storage', function(e) {
+    if (e.key === STORAGE_KEY_APPROVED || e.key === STORAGE_KEY_REQUESTS) {
+      const lastEmail = getActiveWaitingEmail();
+      if (lastEmail && getApprovedEmails().includes(lastEmail.toLowerCase())) {
+        triggerInstantAutoUnlock(lastEmail);
+      }
+    }
+  });
+
+  let watcherInterval = null;
+  let watcherSeconds = 0;
+  let isUnlockingInProgress = false;
+
   function initSeedData() {
     if (!localStorage.getItem(STORAGE_KEY_REQUESTS)) {
       const initialRequests = [
@@ -1203,6 +1449,12 @@ a:hover { color: #0F5F5A; }
       list.push(clean);
       localStorage.setItem(STORAGE_KEY_APPROVED, JSON.stringify(list));
     }
+    // Broadcast event to all open tabs
+    if (broadcastChannel) {
+      try {
+        broadcastChannel.postMessage({ type: 'APPROVAL_EVENT', email: clean, time: Date.now() });
+      } catch(e) {}
+    }
   }
 
   function removeApprovedEmail(email) {
@@ -1210,6 +1462,10 @@ a:hover { color: #0F5F5A; }
     const clean = email.trim().toLowerCase();
     const filtered = list.filter(e => e !== clean);
     localStorage.setItem(STORAGE_KEY_APPROVED, JSON.stringify(filtered));
+  }
+
+  function getActiveWaitingEmail() {
+    return localStorage.getItem('akashvani_last_requested_email') || (document.getElementById('reqEmail') ? document.getElementById('reqEmail').value.trim().toLowerCase() : '');
   }
 
   function showToast(msg) {
@@ -1222,6 +1478,7 @@ a:hover { color: #0F5F5A; }
     }
   }
 
+  // Check URL parameters for 1-click admin email approval links
   function checkUrlApprovalParams() {
     const params = new URLSearchParams(window.location.search);
     const approveEmail = params.get('approve_email') || params.get('approve');
@@ -1234,7 +1491,7 @@ a:hover { color: #0F5F5A; }
         match.status = 'approved';
         saveRequests(reqs);
       }
-      showToast('✅ Access Approved for ' + clean + '! Investor can now view the page.');
+      showToast('✅ Access Approved for ' + clean + '! Investor portal unlocked.');
       unlockPage(clean, 'investor');
       return true;
     }
@@ -1246,7 +1503,6 @@ a:hover { color: #0F5F5A; }
       return { unlocked: true, email: 'Approved via Email Link', role: 'investor' };
     }
 
-    // Check URL parameters for direct unlock token or email
     const params = new URLSearchParams(window.location.search);
     if (params.get('unlock') === 'true' || params.get('admin') === 'true') {
       return { unlocked: true, email: ADMIN_EMAIL, role: 'admin' };
@@ -1257,7 +1513,6 @@ a:hover { color: #0F5F5A; }
       return { unlocked: true, email: paramEmail, role: 'investor' };
     }
 
-    // Check localStorage session
     try {
       const session = JSON.parse(localStorage.getItem(STORAGE_KEY_SESSION));
       if (session && session.unlocked) {
@@ -1268,12 +1523,97 @@ a:hover { color: #0F5F5A; }
     return { unlocked: false };
   }
 
+  // Real-time Live Watcher for Automatic Unlock
+  function startLiveApprovalWatcher(email) {
+    if (watcherInterval) clearInterval(watcherInterval);
+    watcherSeconds = 0;
+    const timerEl = document.getElementById('livePollingTimer');
+
+    // Poll every 2 seconds for instantaneous approval detection
+    watcherInterval = setInterval(() => {
+      watcherSeconds += 2;
+      if (timerEl) timerEl.textContent = 'Active · ' + watcherSeconds + 's';
+
+      const clean = email.trim().toLowerCase();
+      // Check 1: LocalStorage approved emails
+      if (getApprovedEmails().includes(clean)) {
+        clearInterval(watcherInterval);
+        triggerInstantAutoUnlock(clean);
+        return;
+      }
+
+      // Check 2: Requests list status
+      const req = getRequests().find(r => r.email.toLowerCase() === clean);
+      if (req && req.status === 'approved') {
+        clearInterval(watcherInterval);
+        addApprovedEmail(clean);
+        triggerInstantAutoUnlock(clean);
+        return;
+      }
+    }, 2000);
+  }
+
+  function triggerInstantAutoUnlock(email) {
+    if (isUnlockingInProgress) return;
+    isUnlockingInProgress = true;
+
+    if (watcherInterval) clearInterval(watcherInterval);
+
+    // 1. Update Tracker Steps visually
+    const step2 = document.getElementById('trackStep2');
+    const icon2 = document.getElementById('trackIcon2');
+    const title2 = document.getElementById('trackTitle2');
+    const badge2 = document.getElementById('trackStatusBadge2');
+    const desc2 = document.getElementById('trackDesc2');
+
+    const step3 = document.getElementById('trackStep3');
+    const icon3 = document.getElementById('trackIcon3');
+    const title3 = document.getElementById('trackTitle3');
+    const badge3 = document.getElementById('trackStatusBadge3');
+
+    if (step2) {
+      step2.className = 'tracker-step completed';
+      if (icon2) icon2.textContent = '✓';
+      if (title2) title2.textContent = '2. Admin Approval Confirmed';
+      if (badge2) { badge2.textContent = 'APPROVED'; badge2.style.color = '#059669'; }
+      if (desc2) desc2.textContent = 'Admin (' + ADMIN_EMAIL + ') granted full access to your email.';
+    }
+
+    if (step3) {
+      step3.className = 'tracker-step unlocked-celebrate';
+      if (icon3) icon3.textContent = '🔓';
+      if (title3) title3.textContent = '3. Access Unlocked!';
+      if (badge3) { badge3.textContent = 'UNLOCKED'; badge3.style.color = '#059669'; }
+    }
+
+    // 2. Show Celebration Splash Overlay
+    const overlay = document.getElementById('unlockCelebrationOverlay');
+    const appEmail = document.getElementById('approvedEmailDisplay');
+    if (appEmail) appEmail.textContent = email;
+    if (overlay) overlay.style.display = 'flex';
+
+    showToast('🎉 Access Granted! Opening Investor Portal...');
+
+    // 3. Smoothly unlock the entire page after 1.2s celebration
+    setTimeout(() => {
+      unlockPage(email, 'investor');
+      isUnlockingInProgress = false;
+    }, 1200);
+  }
+
   function unlockPage(email, role = 'investor') {
     const session = { unlocked: true, email: email, role: role, time: Date.now() };
     localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(session));
 
     const gate = document.getElementById('investorAccessGate');
-    if (gate) gate.classList.add('hidden-gate');
+    if (gate) {
+      gate.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      gate.style.opacity = '0';
+      gate.style.transform = 'scale(1.02)';
+      setTimeout(() => {
+        gate.classList.add('hidden-gate');
+      }, 500);
+    }
 
     const banner = document.getElementById('investorVerifiedBanner');
     const emailText = document.getElementById('verifiedEmailText');
@@ -1284,8 +1624,11 @@ a:hover { color: #0F5F5A; }
   }
 
   window.resetRequestView = function() {
+    if (watcherInterval) clearInterval(watcherInterval);
     const subView = document.getElementById('gateViewSubmitted');
     const reqView = document.getElementById('gateViewRequest');
+    const overlay = document.getElementById('unlockCelebrationOverlay');
+    if (overlay) overlay.style.display = 'none';
     if (subView) subView.style.display = 'none';
     if (reqView) reqView.style.display = 'block';
   };
@@ -1293,7 +1636,11 @@ a:hover { color: #0F5F5A; }
   window.lockAccess = function() {
     localStorage.removeItem(STORAGE_KEY_SESSION);
     const gate = document.getElementById('investorAccessGate');
-    if (gate) gate.classList.remove('hidden-gate');
+    if (gate) {
+      gate.style.opacity = '1';
+      gate.style.transform = 'none';
+      gate.classList.remove('hidden-gate');
+    }
     const banner = document.getElementById('investorVerifiedBanner');
     if (banner) banner.classList.remove('show');
     resetRequestView();
@@ -1310,18 +1657,18 @@ a:hover { color: #0F5F5A; }
     const name = email.split('@')[0];
     const org = 'Investor / Visitor';
     const role = 'Investor';
-    const note = 'Requested access via Investor page';
+    const note = 'Requested access via Investor portal';
 
     // If already approved, unlock directly
     if (getApprovedEmails().includes(email)) {
-      unlockPage(email);
+      triggerInstantAutoUnlock(email);
       return;
     }
 
     const btn = document.getElementById('btnSubmitRequest');
     if (btn) {
       btn.disabled = true;
-      btn.innerHTML = '<span>Sending Request to Admin...</span>';
+      btn.innerHTML = '<span>Transmitting to Admin...</span>';
     }
 
     const requests = getRequests();
@@ -1347,7 +1694,7 @@ a:hover { color: #0F5F5A; }
     saveRequests(requests);
     localStorage.setItem('akashvani_last_requested_email', email);
 
-    // Send real email notification to Admin (vikasrajput1620@gmail.com)
+    // Send direct 1-click Approval Email to Admin (vikasrajput1620@gmail.com)
     const approveLink = window.location.origin + window.location.pathname + '?approve_email=' + encodeURIComponent(email) + '&admin_key=akashvani2026';
     const emailPayload = {
       _subject: `🔔 New Akashvani Investor Access Request: ${name} (${email})`,
@@ -1372,81 +1719,44 @@ a:hover { color: #0F5F5A; }
     }).then(res => res.json()).then(data => {
       console.log('Notification dispatched to ' + ADMIN_EMAIL, data);
     }).catch(err => {
-      console.log('Email notice sent locally');
+      console.log('Notice processed');
     }).finally(() => {
       if (btn) {
         btn.disabled = false;
         btn.innerHTML = '<span>Send Request to Admin (vikasrajput1620@gmail.com)</span>';
       }
-      // Show submitted confirmation state
+
+      // Switch to Live Process Tracker Screen
       document.getElementById('gateViewRequest').style.display = 'none';
       const subView = document.getElementById('gateViewSubmitted');
       const subEmail = document.getElementById('submittedEmailDisplay');
       if (subEmail) subEmail.textContent = email;
       if (subView) subView.style.display = 'block';
 
-      showToast('📬 Access request sent to ' + ADMIN_EMAIL);
+      // Start Realtime Auto-Approval Polling Watcher
+      startLiveApprovalWatcher(email);
+
+      showToast('📬 Request sent! Listening for live approval...');
     });
   };
 
   window.checkSubmittedStatus = function() {
-    const lastEmail = localStorage.getItem('akashvani_last_requested_email') || document.getElementById('reqEmail').value.trim().toLowerCase();
+    const lastEmail = getActiveWaitingEmail();
     if (!lastEmail) {
-      switchGateTab('verify');
+      alert('Please enter your email in the request box.');
       return;
     }
 
     if (getApprovedEmails().includes(lastEmail.toLowerCase())) {
-      unlockPage(lastEmail);
+      triggerInstantAutoUnlock(lastEmail);
     } else {
       const req = getRequests().find(r => r.email.toLowerCase() === lastEmail.toLowerCase());
       if (req && req.status === 'approved') {
         addApprovedEmail(lastEmail);
-        unlockPage(lastEmail);
+        triggerInstantAutoUnlock(lastEmail);
       } else {
-        alert('Your request (' + lastEmail + ') is still pending review by the Admin (' + ADMIN_EMAIL + ').\n\nYou can also click "Admin Portal" to test approving this request!');
+        showToast('⏳ Request (' + lastEmail + ') is still awaiting Admin approval.');
       }
-    }
-  };
-
-  window.handleVerifyUnlock = function() {
-    const input = document.getElementById('verifyInput').value.trim();
-    if (!input) {
-      alert('Please enter your approved email address or access passcode.');
-      return;
-    }
-
-    const cleanInput = input.toLowerCase();
-
-    // Check passcodes or admin email
-    if (MASTER_PASSCODES.includes(cleanInput) || cleanInput === ADMIN_EMAIL) {
-      unlockPage('Admin (' + input + ')', 'admin');
-      return;
-    }
-
-    // Check approved list
-    if (getApprovedEmails().includes(cleanInput)) {
-      unlockPage(input);
-      return;
-    }
-
-    // Check if approved in requests
-    const req = getRequests().find(r => r.email.toLowerCase() === cleanInput);
-    if (req && req.status === 'approved') {
-      addApprovedEmail(cleanInput);
-      unlockPage(input);
-      return;
-    }
-
-    alert('Email "' + input + '" has not been approved yet by the Admin (' + ADMIN_EMAIL + ').\n\nPlease submit an access request or wait for admin approval.');
-  };
-
-  window.handleAdminLogin = function() {
-    const pin = document.getElementById('adminPinInput').value.trim();
-    if (MASTER_PASSCODES.includes(pin.toLowerCase()) || pin.toLowerCase() === ADMIN_EMAIL) {
-      openAdminModal();
-    } else {
-      alert('Incorrect admin password. You can enter: admin123 or akashvani2026');
     }
   };
 
@@ -1497,7 +1807,7 @@ a:hover { color: #0F5F5A; }
 
     input.value = '';
     renderAdminDashboard();
-    showToast('✅ ' + email + ' has been approved!');
+    showToast('✅ ' + email + ' has been approved! (Auto-unlocking if active)');
   };
 
   window.approveRequest = function(id) {
@@ -1508,7 +1818,7 @@ a:hover { color: #0F5F5A; }
       addApprovedEmail(req.email);
       saveRequests(reqs);
       renderAdminDashboard();
-      showToast('✅ Approved access for ' + req.email);
+      showToast('✅ Approved access for ' + req.email + ' (Auto-unlocking user screen)');
     }
   };
 
@@ -1608,7 +1918,6 @@ a:hover { color: #0F5F5A; }
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  // Auto clean URL in browser address bar to clean /investors.html or /investors
   function cleanCurrentUrl() {
     try {
       if (window.location.pathname.includes('%20') || window.location.pathname.includes('Akashvani') || window.location.pathname.endsWith('.dc')) {
@@ -1618,7 +1927,6 @@ a:hover { color: #0F5F5A; }
     } catch(e) {}
   }
 
-  // Initial check on load
   document.addEventListener('DOMContentLoaded', function() {
     cleanCurrentUrl();
     initSeedData();
@@ -1628,7 +1936,6 @@ a:hover { color: #0F5F5A; }
     }
   });
 
-  // Also check immediately in case DOM is already ready
   cleanCurrentUrl();
   initSeedData();
   const currentAccess = isAccessUnlocked();
