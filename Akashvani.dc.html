@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; color: #10333B; background: #FFFFFF; -webkit-font-smoothing: antialiased; }
+a { color: #17817A; text-decoration: none; }
+a:hover { color: #0F5F5A; }
+::placeholder { color: #93A9AF; opacity: 1; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0E3038"></rect><circle cx="50" cy="50" r="26" fill="none" stroke="#17817A" stroke-width="2"></circle><circle cx="50" cy="50" r="17" fill="none" stroke="#8FC9C3" stroke-width="1.5"></circle><text x="50" y="57" text-anchor="middle" font-family="sans-serif" font-size="20" font-weight="800" fill="#FFFFFF">A</text></svg></template>
+
+<nav style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,.94); backdrop-filter:blur(8px); border-bottom:1px solid #E8EFEE">
+  <div style="max-width:1200px; margin:0 auto; padding:0 28px; height:68px; display:flex; align-items:center; justify-content:space-between; gap:24px">
+    <a href="index.html" style="font-weight:800; font-size:19px; letter-spacing:.14em; color:#10333B">AKASHVANI</a>
+    <div style="display:flex; align-items:center; gap:28px">
+      <a href="index.html" style="color:#35555E; font-size:15px; font-weight:600" style-hover="color:#17817A">Home</a>
+      <sc-if value="{{ showVisionVal }}" hint-placeholder-val="{{ true }}">
+        <a href="#vision" style="color:#35555E; font-size:15px; font-weight:600" style-hover="color:#17817A">Our Vision</a>
+      </sc-if>
+      <a href="experiences.html" style="color:#35555E; font-size:15px; font-weight:600" style-hover="color:#17817A">Experiences</a>
+      <a href="investors.html" style="color:#35555E; font-size:15px; font-weight:600" style-hover="color:#17817A">Investors</a>
+      <a href="#survey" style="display:inline-block; padding:11px 22px; border:1.5px solid #10333B; border-radius:10px; color:#10333B; font-size:15px; font-weight:700" style-hover="background:#10333B; color:#FFFFFF">Join the Research</a>
+    </div>
+  </div>
+</nav>
+
+<section data-screen-label="Hero" style="position:relative; overflow:hidden; text-align:center; padding:104px 24px 88px">
+  <div style="position:absolute; left:50%; top:-140px; transform:translateX(-50%); width:640px; height:640px; border:1px solid rgba(23,129,122,.18); border-radius:50%"></div>
+  <div style="position:absolute; left:50%; top:-300px; transform:translateX(-50%); width:960px; height:960px; border:1px solid rgba(23,129,122,.12); border-radius:50%"></div>
+  <div style="position:absolute; left:50%; top:-470px; transform:translateX(-50%); width:1300px; height:1300px; border:1px solid rgba(23,129,122,.08); border-radius:50%"></div>
+  <div style="position:absolute; left:50%; top:60px; transform:translateX(-50%); width:520px; height:420px; background:radial-gradient(circle, rgba(23,129,122,.10), transparent 68%)"></div>
+  <div style="position:absolute; left:calc(50% - 322px); top:118px; width:9px; height:9px; border-radius:50%; background:#1D8A80"></div>
+  <div style="position:absolute; left:calc(50% + 296px); top:74px; width:7px; height:7px; border-radius:50%; background:#1D8A80; opacity:.75"></div>
+  <div style="position:absolute; left:calc(50% + 438px); top:262px; width:8px; height:8px; border-radius:50%; background:#8FC9C3"></div>
+  <div style="position:absolute; left:calc(50% - 470px); top:300px; width:6px; height:6px; border-radius:50%; background:#8FC9C3"></div>
+  <div style="position:relative">
+    <span style="display:inline-block; padding:9px 20px; border:1px solid #D6E6E4; background:#F3FAF9; border-radius:999px; color:#15726B; font-size:12px; font-weight:700; letter-spacing:.14em">FOUNDING MEMBERS NOW INVITED</span>
+    <h1 style="margin:28px auto 18px; max-width:900px; font-size:clamp(42px, 6.2vw, 66px); line-height:1.07; font-weight:800; letter-spacing:-0.02em">When life feels unclear,<br>find your next step.</h1>
+    <p style="margin:0 auto; max-width:620px; font-size:19px; line-height:1.6; color:#4A6570">Akashvani combines spiritual wisdom, astrology and practical human guidance to help you navigate important life decisions.</p>
+    <div style="margin-top:32px">
+      <a href="#survey" style="display:inline-block; padding:17px 36px; background:#0E3038; color:#FFFFFF; border-radius:10px; font-size:17px; font-weight:700" style-hover="background:#154551; color:#FFFFFF">Start the 3-Minute Survey</a>
+    </div>
+    <div style="margin-top:16px; display:flex; align-items:center; justify-content:center; gap:7px; color:#6B838B; font-size:14px">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B838B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
+      <span>Private. Thoughtful. No spam.</span>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{ showVisionVal }}" hint-placeholder-val="{{ true }}">
+  <section id="vision" data-screen-label="Vision" style="background:#EFF6F5; text-align:center; padding:74px 24px">
+    <div style="font-size:12px; font-weight:700; letter-spacing:.15em; color:#17817A">OUR LONG-TERM VISION</div>
+    <h2 style="margin:16px auto 14px; max-width:760px; font-size:clamp(28px, 3.4vw, 36px); line-height:1.25; font-weight:800; letter-spacing:-0.01em">Conscious living, rooted in spirituality.<br>Built for everyday wellness.</h2>
+    <p style="margin:0 auto; max-width:560px; font-size:16.5px; line-height:1.65; color:#4A6570">Akashvani is being created as a trusted destination for guidance, practices and experiences that make spirituality useful in everyday life.</p>
+    <div style="max-width:820px; margin:44px auto 0; text-align:center">
+      <div style="font-size:12px; font-weight:700; letter-spacing:.15em; color:#6B838B">WE ARE JUST GETTING STARTED</div>
+      <div style="margin-top:18px; display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; text-align:left">
+        <div style="background:#FFFFFF; border:1px solid #DCE9E7; border-radius:14px; padding:24px 26px; display:flex; gap:16px; align-items:flex-start">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17817A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none; margin-top:2px"><path d="M12 21C12 21 4 13.9 4 8.9 4 6.2 6.2 4 8.9 4c1.3 0 2.4.6 3.1 1.5C12.7 4.6 13.8 4 15.1 4 17.8 4 20 6.2 20 8.9c0 5-8 12.1-8 12.1Z"></path></svg>
+          <div>
+            <div style="font-size:17px; font-weight:800">Relationship guidance</div>
+            <p style="margin:6px 0 0; font-size:14.5px; line-height:1.6; color:#4A6570">Private, structured support for the relationship decisions people find hardest to face alone — our first focus.</p>
+          </div>
+        </div>
+        <div style="background:#FFFFFF; border:1px solid #DCE9E7; border-radius:14px; padding:24px 26px; display:flex; gap:16px; align-items:flex-start">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17817A" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="flex:none; margin-top:2px"><path d="M6.5 17a5.5 5.5 0 0 1 11 0"></path><path d="M12 5.5v2.2M4.6 8.6l1.6 1.6M19.4 8.6l-1.6 1.6M2.5 14.5l2.2.6M21.5 14.5l-2.2.6"></path></svg>
+          <div>
+            <div style="font-size:17px; font-weight:800">Live experiences</div>
+            <p style="margin:6px 0 0; font-size:14.5px; line-height:1.6; color:#4A6570">Gatherings like Naam Ratri and Satsang Stories that make spirituality social and part of everyday life. <a href="Akashvani%20Experiences.dc.html">Explore experiences</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<section id="survey" data-screen-label="Survey" style="padding:84px 24px 100px">
+  <h2 style="margin:0 auto; max-width:700px; text-align:center; font-size:clamp(28px, 3.4vw, 36px); font-weight:800; letter-spacing:-0.01em">Help us build Akashvani with you</h2>
+  <p style="margin:14px auto 0; max-width:540px; text-align:center; font-size:16.5px; line-height:1.6; color:#4A6570">Tell us about the decisions you face, the guidance you seek and what would make Akashvani genuinely valuable to you.</p>
+
+  <div ref="{{ cardRef }}" style="max-width:880px; margin:44px auto 0; background:#FFFFFF; border:1px solid #E3ECEB; border-radius:18px; padding:40px 48px 44px; box-shadow:0 24px 60px -30px rgba(16,51,59,.16)">
+    <div style="text-align:center">
+      <div style="font-size:14px; font-weight:700; color:#10333B">{{ stepLabel }}</div>
+      <div style="width:280px; max-width:100%; height:6px; background:#E6EEED; border-radius:999px; margin:10px auto 0; overflow:hidden">
+        <div style="width:{{ progressPct }}; height:100%; background:#17817A; border-radius:999px; transition:width .35s ease"></div>
+      </div>
+    </div>
+
+    <sc-if value="{{ isBridge }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center; padding:36px 0 8px; animation:fadeUp .35s ease">
+        <div style="width:60px; height:60px; border-radius:50%; background:#E9F4F3; display:flex; align-items:center; justify-content:center; margin:0 auto">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17817A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 7"></path></svg>
+        </div>
+        <h3 style="margin:20px 0 10px; font-size:26px; font-weight:800">Thank you, {{ thanksName }}.</h3>
+        <p style="margin:0 auto; max-width:520px; font-size:16px; line-height:1.65; color:#4A6570">{{ thanksLine }}</p>
+        <div style="max-width:560px; margin:30px auto 0; border-top:1px solid #ECF2F1; padding-top:28px">
+          <div style="font-size:12px; font-weight:700; letter-spacing:.14em; color:#17817A">GO DEEPER · ABOUT 8 MINUTES</div>
+          <h4 style="margin:12px 0 8px; font-size:20px; font-weight:800">{{ bridgeTitle }}</h4>
+          <p style="margin:0 auto; max-width:480px; font-size:15px; line-height:1.6; color:#4A6570">A short set of detailed questions about what happened, what you tried and what would earn your trust. This is what shapes what we build.</p>
+          <div style="margin-top:22px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px">
+            <button type="button" onClick="{{ startDetail }}" style="padding:15px 30px; border:none; border-radius:10px; background:#17817A; color:#FFFFFF; font-family:inherit; font-size:15.5px; font-weight:700; cursor:pointer" style-hover="background:#0F5F5A">Start the detailed questions</button>
+            <button type="button" onClick="{{ skipDetail }}" style="padding:15px 26px; border:1.5px solid #DCE7E6; border-radius:10px; background:#FFFFFF; color:#35555E; font-family:inherit; font-size:15.5px; font-weight:600; cursor:pointer" style-hover="border-color:#B9CBCE">I'm done for now</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center; padding:36px 0 8px; animation:fadeUp .35s ease">
+        <div style="width:60px; height:60px; border-radius:50%; background:#E9F4F3; display:flex; align-items:center; justify-content:center; margin:0 auto">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#17817A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 7"></path></svg>
+        </div>
+        <h3 style="margin:20px 0 10px; font-size:26px; font-weight:800">Thank you, {{ thanksName }}.</h3>
+        <p style="margin:0 auto; max-width:520px; font-size:16px; line-height:1.65; color:#4A6570">{{ doneLine }}</p>
+        <p style="margin:16px auto 0; font-size:13.5px; color:#8298A0">Your responses are private and go only to the Akashvani founding team.</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSurvey }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:36px">
+
+        <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:fadeUp .35s ease">
+            <h3 style="margin:0 0 26px; text-align:center; font-size:23px; font-weight:700">Which life decision feels most important to you right now?</h3>
+            <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px">
+              <sc-for list="{{ catOpts }}" as="opt" hint-placeholder-count="6">
+                <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:9px; padding:13px 22px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15.5px; font-weight:600; cursor:pointer">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{{ opt.d }}"></path></svg>
+                  <span>{{ opt.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .35s ease">
+            <h3 style="margin:0 0 8px; text-align:center; font-size:23px; font-weight:700">What are you trying to decide right now?</h3>
+            <p style="margin:0 0 24px; text-align:center; font-size:14.5px; color:#6B838B">A few honest sentences are enough.</p>
+            <textarea value="{{ decisionVal }}" onChange="{{ setDecision }}" placeholder="Tell us briefly what is happening and what feels unclear." style="display:block; width:100%; max-width:640px; min-height:150px; margin:0 auto; box-sizing:border-box; padding:16px 18px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15.5px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .35s ease">
+            <h3 style="margin:0 0 26px; text-align:center; font-size:23px; font-weight:700">How difficult does this decision feel right now?</h3>
+            <div style="display:flex; justify-content:center; gap:14px">
+              <sc-for list="{{ diffOpts }}" as="opt" hint-placeholder-count="5">
+                <button type="button" onClick="{{ opt.onPick }}" style="width:54px; height:54px; border-radius:50%; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:18px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center">{{ opt.label }}</button>
+              </sc-for>
+            </div>
+            <div style="max-width:326px; margin:14px auto 0; display:flex; justify-content:space-between; font-size:13px; color:#6B838B">
+              <span>Not very difficult</span>
+              <span>Extremely difficult</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .35s ease">
+            <h3 style="margin:0 0 26px; text-align:center; font-size:23px; font-weight:700">How soon do you need clarity?</h3>
+            <div style="max-width:540px; margin:0 auto; display:grid; gap:10px">
+              <sc-for list="{{ urgOpts }}" as="opt" hint-placeholder-count="5">
+                <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:14px 18px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15.5px; font-weight:600; cursor:pointer">
+                  <span style="width:19px; height:19px; border-radius:50%; box-sizing:border-box; flex:none; border:2px solid {{ opt.dotBorder }}; background:{{ opt.dotBg }}; box-shadow:{{ opt.dotShadow }}"></span>
+                  <span>{{ opt.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep5 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .35s ease">
+            <h3 style="margin:0 0 8px; text-align:center; font-size:23px; font-weight:700">Who or what have you already turned to for help?</h3>
+            <p style="margin:0 0 24px; text-align:center; font-size:14.5px; color:#6B838B">Select all that apply.</p>
+            <div style="max-width:640px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(264px, 1fr)); gap:10px">
+              <sc-for list="{{ srcOpts }}" as="opt" hint-placeholder-count="8">
+                <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:12px; text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer">
+                  <span style="width:19px; height:19px; border-radius:6px; box-sizing:border-box; flex:none; display:flex; align-items:center; justify-content:center; border:2px solid {{ opt.boxBorder }}; background:{{ opt.boxBg }}">
+                    <sc-if value="{{ opt.checked }}" hint-placeholder-val="{{ false }}">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 7"></path></svg>
+                    </sc-if>
+                  </span>
+                  <span>{{ opt.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep6 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .35s ease">
+            <h3 style="margin:0 0 26px; text-align:center; font-size:23px; font-weight:700">How much have you already spent trying to find clarity?</h3>
+            <div style="max-width:540px; margin:0 auto; display:grid; gap:10px">
+              <sc-for list="{{ spendOpts }}" as="opt" hint-placeholder-count="6">
+                <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:14px 18px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15.5px; font-weight:600; cursor:pointer">
+                  <span style="width:19px; height:19px; border-radius:50%; box-sizing:border-box; flex:none; border:2px solid {{ opt.dotBorder }}; background:{{ opt.dotBg }}; box-shadow:{{ opt.dotShadow }}"></span>
+                  <span>{{ opt.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep7 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .35s ease">
+            <h3 style="margin:0 0 8px; text-align:center; font-size:23px; font-weight:700">What is missing from the guidance available today?</h3>
+            <p style="margin:0 0 24px; text-align:center; font-size:14.5px; color:#6B838B">Choose up to two.</p>
+            <div style="max-width:680px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(284px, 1fr)); gap:10px">
+              <sc-for list="{{ missOpts }}" as="opt" hint-placeholder-count="9">
+                <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:12px; text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; opacity:{{ opt.opacity }}; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer">
+                  <span style="width:19px; height:19px; border-radius:6px; box-sizing:border-box; flex:none; display:flex; align-items:center; justify-content:center; border:2px solid {{ opt.boxBorder }}; background:{{ opt.boxBg }}">
+                    <sc-if value="{{ opt.checked }}" hint-placeholder-val="{{ false }}">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5l5 5L19.5 7"></path></svg>
+                    </sc-if>
+                  </span>
+                  <span>{{ opt.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep8 }}" hint-placeholder-val="{{ false }}">
+          <div style="animation:fadeUp .35s ease">
+            <p style="margin:0 auto 10px; max-width:620px; text-align:center; font-size:15.5px; line-height:1.6; color:#4A6570">Akashvani is creating a private guidance experience combining spiritual insight, astrology and practical human support.</p>
+            <h3 style="margin:0 0 26px; text-align:center; font-size:23px; font-weight:700">What would you genuinely do next?</h3>
+            <div style="max-width:540px; margin:0 auto; display:grid; gap:10px">
+              <sc-for list="{{ intentOpts }}" as="opt" hint-placeholder-count="5">
+                <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:14px 18px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15.5px; font-weight:600; cursor:pointer">
+                  <span style="width:19px; height:19px; border-radius:50%; box-sizing:border-box; flex:none; border:2px solid {{ opt.dotBorder }}; background:{{ opt.dotBg }}; box-shadow:{{ opt.dotShadow }}"></span>
+                  <span>{{ opt.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="max-width:540px; margin:28px auto 0; border-top:1px solid #ECF2F1; padding-top:26px">
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px">
+                <div>
+                  <label style="display:block; margin-bottom:7px; font-size:13.5px; font-weight:700; color:#35555E">Name</label>
+                  <input type="text" value="{{ nameVal }}" onChange="{{ setName }}" placeholder="Your name" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+                </div>
+                <div>
+                  <label style="display:block; margin-bottom:7px; font-size:13.5px; font-weight:700; color:#35555E">Email or WhatsApp number</label>
+                  <input type="text" value="{{ contactVal }}" onChange="{{ setContact }}" placeholder="you@example.com or +1 555 000 1234" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+                </div>
+              </div>
+              <button type="button" onClick="{{ onSubmit }}" style="margin-top:18px; width:100%; padding:16px; border:none; border-radius:10px; background:{{ submitBg }}; color:#FFFFFF; font-family:inherit; font-size:16.5px; font-weight:700; cursor:{{ submitCursor }}; transition:background .2s ease">Submit &amp; Join Akashvani</button>
+              <div style="margin-top:14px; display:flex; align-items:center; justify-content:center; gap:7px; color:#6B838B; font-size:13.5px">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B838B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg>
+                <span>Private. Thoughtful. No spam.</span>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:36px">
+
+        <sc-if value="{{ isD1 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">A little about you</h3>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">Your age</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ ageOpts }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:14px">
+              <div>
+                <label style="display:block; margin-bottom:7px; font-size:13.5px; font-weight:700; color:#35555E">Where do you live?</label>
+                <input type="text" value="{{ dTxt.location.val }}" onChange="{{ dTxt.location.on }}" placeholder="City, country" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:7px; font-size:13.5px; font-weight:700; color:#35555E">What do you do for work?</label>
+                <input type="text" value="{{ dTxt.work.val }}" onChange="{{ dTxt.work.on }}" placeholder="e.g. Software engineer" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">Relationship status</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ statusOpts }}" as="opt" hint-placeholder-count="6">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">When did this situation happen?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ whenOpts }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">What triggered the need to make a decision?</label>
+              <textarea value="{{ dTxt.trigger.val }}" onChange="{{ dTxt.trigger.on }}" placeholder="The moment or event that made this real." style="width:100%; min-height:76px; box-sizing:border-box; padding:14px 16px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isD2 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">{{ d2Title }}</h3>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">Tell us exactly what happened, and what you were trying to decide.</label>
+              <textarea value="{{ dTxt.happened.val }}" onChange="{{ dTxt.happened.on }}" placeholder="In your own words — the more specific, the more it helps." style="width:100%; min-height:110px; box-sizing:border-box; padding:14px 16px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">Why was it difficult? What were you most worried about, and what could a wrong decision have cost you?</label>
+              <textarea value="{{ dTxt.why.val }}" onChange="{{ dTxt.why.on }}" placeholder="Fears, risks, what was at stake." style="width:100%; min-height:110px; box-sizing:border-box; padding:14px 16px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">How long did you remain confused or delay the decision?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ delayOpts }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">What did it affect? <span style="font-weight:500; color:#6B838B">Select all that apply.</span></label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ affectOpts }}" as="opt" hint-placeholder-count="6">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">How painful was the problem, from 1 to 10?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:8px">
+                <sc-for list="{{ painOpts }}" as="opt" hint-placeholder-count="10">
+                  <button type="button" onClick="{{ opt.onPick }}" style="width:44px; height:44px; border-radius:50%; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15px; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+              <input type="text" value="{{ dTxt.painWhy.val }}" onChange="{{ dTxt.painWhy.on }}" placeholder="Why that number?" style="margin-top:12px; width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isD3 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">What you tried</h3>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">Who did you consult? <span style="font-weight:500; color:#6B838B">Select all that apply.</span></label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ consultOpts }}" as="opt" hint-placeholder-count="8">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">Which option helped the most — and what was disappointing or missing?</label>
+              <textarea value="{{ dTxt.helped.val }}" onChange="{{ dTxt.helped.on }}" placeholder="What worked, what fell short." style="width:100%; min-height:90px; box-sizing:border-box; padding:14px 16px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">How many different people or services did you try?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ triedOpts }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">How much time did you spend trying to solve it?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ timeOpts }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">How much money did you spend?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ moneyOpts }}" as="opt" hint-placeholder-count="6">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">What stopped you from getting better help?</label>
+              <input type="text" value="{{ dTxt.stopped.val }}" onChange="{{ dTxt.stopped.on }}" placeholder="Cost, trust, not knowing where to look…" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isD4 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">What you were looking for</h3>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">What kind of support did you want?</label>
+              <div style="display:grid; gap:10px">
+                <sc-for list="{{ wantOpts }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer">
+                    <span style="width:19px; height:19px; border-radius:50%; box-sizing:border-box; flex:none; border:2px solid {{ opt.dotBorder }}; background:{{ opt.dotBg }}; box-shadow:{{ opt.dotShadow }}"></span>
+                    <span>{{ opt.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">What would a successful outcome have looked like?</label>
+              <textarea value="{{ dTxt.outcome.val }}" onChange="{{ dTxt.outcome.on }}" placeholder="If it had gone perfectly, what would be true today?" style="width:100%; min-height:90px; box-sizing:border-box; padding:14px 16px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">Would one session have been enough?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ sessionOpts }}" as="opt" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">What would an expert need to know to truly understand your situation?</label>
+              <input type="text" value="{{ dTxt.expertNeeds.val }}" onChange="{{ dTxt.expertNeeds.on }}" placeholder="History, context, details that matter." style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isD5 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">What earns your trust</h3>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">What makes you trust someone with a private problem? <span style="font-weight:500; color:#6B838B">Select all that apply.</span></label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ trustOpts }}" as="opt" hint-placeholder-count="7">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">One expert, or a second expert reviewing the advice?</label>
+              <div style="display:grid; gap:10px">
+                <sc-for list="{{ reviewOpts }}" as="opt" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer">
+                    <span style="width:19px; height:19px; border-radius:50%; box-sizing:border-box; flex:none; border:2px solid {{ opt.dotBorder }}; background:{{ opt.dotBg }}; box-shadow:{{ opt.dotShadow }}"></span>
+                    <span>{{ opt.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">Would you be comfortable sharing birth details, personal history and documents?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ shareOpts }}" as="opt" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">What would immediately make you distrust the service?</label>
+              <input type="text" value="{{ dTxt.distrust.val }}" onChange="{{ dTxt.distrust.on }}" placeholder="Red flags, deal-breakers." style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isD6 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">Your honest reaction</h3>
+            <div style="padding:20px 24px; background:#F3FAF9; border:1px solid #D6E6E4; border-radius:14px; font-size:15.5px; line-height:1.65; color:#0E4B46">Akashvani helps people navigate important life decisions. You share your situation, speak with a suitable expert, receive a second expert&rsquo;s perspective and get a practical written guidance note with follow-ups.</div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">What is your honest first reaction?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ reactionOpts }}" as="opt" hint-placeholder-count="5">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">Which part sounds most valuable?</label>
+              <div style="display:grid; gap:10px">
+                <sc-for list="{{ valuableOpts }}" as="opt" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer">
+                    <span style="width:19px; height:19px; border-radius:50%; box-sizing:border-box; flex:none; border:2px solid {{ opt.dotBorder }}; background:{{ opt.dotBg }}; box-shadow:{{ opt.dotShadow }}"></span>
+                    <span>{{ opt.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">Would astrology make the service more useful or less credible?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ astroOpts }}" as="opt" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">What would you prefer?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ prefOpts }}" as="opt" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">What sounds unclear or unnecessary — and what would stop you from using it?</label>
+              <textarea value="{{ dTxt.unclear.val }}" onChange="{{ dTxt.unclear.on }}" placeholder="Be blunt — this is the most useful answer you can give us." style="width:100%; min-height:90px; box-sizing:border-box; padding:14px 16px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isD7 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">What is it worth?</h3>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:14px">
+              <div>
+                <label style="display:block; margin-bottom:7px; font-size:13.5px; font-weight:700; color:#35555E">A reasonable price</label>
+                <input type="text" value="{{ dTxt.priceFair.val }}" onChange="{{ dTxt.priceFair.on }}" placeholder="{{ curHint }}" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:7px; font-size:13.5px; font-weight:700; color:#35555E">Suspiciously cheap</label>
+                <input type="text" value="{{ dTxt.priceCheap.val }}" onChange="{{ dTxt.priceCheap.on }}" placeholder="{{ curHint }}" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+              </div>
+              <div>
+                <label style="display:block; margin-bottom:7px; font-size:13.5px; font-weight:700; color:#35555E">Would need strong proof</label>
+                <input type="text" value="{{ dTxt.priceProof.val }}" onChange="{{ dTxt.priceProof.on }}" placeholder="{{ curHint }}" style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+              </div>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">{{ rejectLabel }}</label>
+              <input type="text" value="{{ dTxt.reject159.val }}" onChange="{{ dTxt.reject159.on }}" placeholder="The reason you would say no." style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">{{ depositLabel }}</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ depositOpts }}" as="opt" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+              <input type="text" value="{{ dTxt.depositWhy.val }}" onChange="{{ dTxt.depositWhy.on }}" placeholder="Why, or why not?" style="margin-top:12px; width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">If this service were available today, would you book it now?</label>
+              <div style="display:grid; gap:10px">
+                <sc-for list="{{ bookOpts }}" as="opt" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ opt.onPick }}" style="display:flex; align-items:center; gap:13px; width:100%; text-align:left; padding:13px 16px; border-radius:12px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer">
+                    <span style="width:19px; height:19px; border-radius:50%; box-sizing:border-box; flex:none; border:2px solid {{ opt.dotBorder }}; background:{{ opt.dotBg }}; box-shadow:{{ opt.dotShadow }}"></span>
+                    <span>{{ opt.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isD8 }}" hint-placeholder-val="{{ false }}">
+          <div style="max-width:640px; margin:0 auto; display:grid; gap:24px; animation:fadeUp .35s ease">
+            <h3 style="margin:0; text-align:center; font-size:23px; font-weight:700">Final thoughts</h3>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">What should we have asked, but did not?</label>
+              <textarea value="{{ dTxt.missed.val }}" onChange="{{ dTxt.missed.on }}" placeholder="Anything we missed about your situation or needs." style="width:100%; min-height:90px; box-sizing:border-box; padding:14px 16px; border:1.5px solid #DCE7E6; border-radius:12px; font-family:inherit; font-size:15px; line-height:1.6; color:#10333B; resize:vertical; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)"></textarea>
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:7px; font-size:15px; font-weight:700">Do you know someone who recently faced a similar decision? <span style="font-weight:500; color:#6B838B">Optional.</span></label>
+              <input type="text" value="{{ dTxt.referral.val }}" onChange="{{ dTxt.referral.on }}" placeholder="Their name and email or WhatsApp — only with their blessing." style="width:100%; box-sizing:border-box; padding:13px 16px; border:1.5px solid #DCE7E6; border-radius:10px; font-family:inherit; font-size:15px; color:#10333B; outline:none" style-focus="border-color:#17817A; box-shadow:0 0 0 3px rgba(23,129,122,.14)">
+            </div>
+            <div>
+              <label style="display:block; margin-bottom:10px; font-size:15px; font-weight:700">May we contact you for a paid pilot or a follow-up conversation?</label>
+              <div style="display:flex; flex-wrap:wrap; gap:10px">
+                <sc-for list="{{ contactOkOpts }}" as="opt" hint-placeholder-count="2">
+                  <button type="button" onClick="{{ opt.onPick }}" style="padding:10px 18px; border-radius:999px; border:1.5px solid {{ opt.border }}; background:{{ opt.bg }}; color:{{ opt.color }}; font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer">{{ opt.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <button type="button" onClick="{{ onDetailSubmit }}" style="width:100%; padding:16px; border:none; border-radius:10px; background:#17817A; color:#FFFFFF; font-family:inherit; font-size:16.5px; font-weight:700; cursor:pointer" style-hover="background:#0F5F5A">Submit detailed responses</button>
+          </div>
+        </sc-if>
+
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+      <div style="max-width:640px; margin:32px auto 0; display:flex; align-items:center; justify-content:space-between">
+        <div>
+          <sc-if value="{{ showBack }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ onBack }}" style="padding:13px 24px; border-radius:10px; border:1.5px solid #DCE7E6; background:#FFFFFF; color:#35555E; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer" style-hover="border-color:#B9CBCE">Back</button>
+          </sc-if>
+        </div>
+        <sc-if value="{{ showContinue }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ onContinue }}" style="padding:14px 34px; border:none; border-radius:10px; background:{{ continueBg }}; color:#FFFFFF; font-family:inherit; font-size:15.5px; font-weight:700; cursor:{{ continueCursor }}; transition:background .2s ease">Continue</button>
+        </sc-if>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<footer data-screen-label="Footer" style="border-top:1px solid #E8EFEE">
+  <div style="max-width:1200px; margin:0 auto; padding:32px 28px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px">
+    <div style="font-weight:800; font-size:15px; letter-spacing:.13em">AKASHVANI</div>
+    <div style="display:flex; flex-wrap:wrap; gap:22px; font-size:13.5px; font-weight:600">
+      <a href="index.html" style="color:#35555E" style-hover="color:#17817A">Home</a>
+      <a href="#vision" style="color:#35555E" style-hover="color:#17817A">Vision</a>
+      <a href="experiences.html" style="color:#35555E" style-hover="color:#17817A">Experiences</a>
+      <a href="investors.html" style="color:#35555E" style-hover="color:#17817A">Investor Overview</a>
+    </div>
+    <div style="font-size:13.5px; color:#8298A0">© 2026 Akashvani · Private. Thoughtful. No spam.</div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;currency&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;USD&quot;, &quot;INR&quot;], &quot;default&quot;: &quot;USD&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Localisation&quot; },
+  &quot;showVision&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Sections&quot; }
+}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      phase: 'survey', step: 1, dStep: 1,
+      answers: { category: null, decision: '', difficulty: null, urgency: null, sources: [], spend: null, missing: [], intent: null, name: '', contact: '' },
+      d: { age: null, location: '', work: '', status: null, when: null, trigger: '', happened: '', why: '', delay: null, affected: [], pain: null, painWhy: '', consulted: [], helped: '', tried: null, time: null, money: null, stopped: '', want: null, outcome: '', sessions: null, expertNeeds: '', trust: [], review: null, share: null, distrust: '', reaction: null, valuable: null, astro: null, pref: null, unclear: '', priceFair: '', priceCheap: '', priceProof: '', reject159: '', deposit: null, depositWhy: '', bookNow: null, missed: '', referral: '', contactOk: null }
+    };
+    this.cardRef = React.createRef();
+    this.NONE = 'I have not sought help';
+  }
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem('akashvani-survey');
+      if (raw) {
+        const s = JSON.parse(raw);
+        if (s && s.answers) this.setState({
+          phase: ['survey', 'bridge', 'detail'].includes(s.phase) ? s.phase : 'survey',
+          step: Math.min(Math.max(s.step || 1, 1), 8),
+          dStep: Math.min(Math.max(s.dStep || 1, 1), 8),
+          answers: Object.assign({}, this.state.answers, s.answers),
+          d: Object.assign({}, this.state.d, s.d || {})
+        });
+      }
+    } catch (e) {}
+  }
+  persist() {
+    try {
+      if (this.state.phase === 'done') { localStorage.removeItem('akashvani-survey'); return; }
+      localStorage.setItem('akashvani-survey', JSON.stringify({ phase: this.state.phase, step: this.state.step, dStep: this.state.dStep, answers: this.state.answers, d: this.state.d }));
+    } catch (e) {}
+  }
+  setAns(k, v) { this.setState(s => ({ answers: Object.assign({}, s.answers, { [k]: v }) }), () => this.persist()); }
+  setD(k, v) { this.setState(s => ({ d: Object.assign({}, s.d, { [k]: v }) }), () => this.persist()); }
+  toggle(bag, k, v, max, exclusive) {
+    this.setState(s => {
+      let arr = s[bag][k].slice();
+      if (exclusive && v === exclusive) { arr = arr.includes(v) ? [] : [v]; }
+      else {
+        const i = arr.indexOf(v);
+        if (i >= 0) arr.splice(i, 1);
+        else { if (exclusive) arr = arr.filter(x => x !== exclusive); if (!max || arr.length < max) arr.push(v); }
+      }
+      return { [bag]: Object.assign({}, s[bag], { [k]: arr }) };
+    }, () => this.persist());
+  }
+  canContinue() {
+    const a = this.state.answers;
+    if (this.state.phase === 'detail') return true;
+    switch (this.state.step) {
+      case 1: return !!a.category;
+      case 2: return a.decision.trim().length > 0;
+      case 3: return !!a.difficulty;
+      case 4: return !!a.urgency;
+      case 5: return a.sources.length > 0;
+      case 6: return !!a.spend;
+      case 7: return a.missing.length > 0;
+      default: return false;
+    }
+  }
+  canSubmit() {
+    const a = this.state.answers;
+    return !!a.intent && a.name.trim().length > 0 && a.contact.trim().length > 1;
+  }
+  scrollToCard() {
+    const el = this.cardRef.current;
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 88;
+      if (window.scrollY > top) window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  }
+  go(patch) { this.setState(patch, () => { this.persist(); this.scrollToCard(); }); }
+  pick(bag, key, label) {
+    const on = this.state[bag][key] === label;
+    const set = bag === 'answers' ? () => this.setAns(key, label) : () => this.setD(key, label);
+    return { label, border: on ? '#17817A' : '#DCE7E6', bg: on ? '#E9F4F3' : '#FFFFFF', color: on ? '#0E4B46' : '#35555E', dotBorder: on ? '#17817A' : '#B9CBCE', dotBg: on ? '#17817A' : '#FFFFFF', dotShadow: on ? 'inset 0 0 0 3.5px #fff' : 'none', onPick: set };
+  }
+  single(key, label) { return this.pick('answers', key, label); }
+  multi(key, label, max, exclusive) {
+    const arr = this.state.answers[key];
+    const on = arr.includes(label);
+    const maxed = !!max && arr.length >= max && !on;
+    return { label, checked: on, border: on ? '#17817A' : '#DCE7E6', bg: on ? '#E9F4F3' : '#FFFFFF', color: on ? '#0E4B46' : '#35555E', boxBorder: on ? '#17817A' : '#B9CBCE', boxBg: on ? '#17817A' : '#FFFFFF', opacity: maxed ? '.45' : '1', onPick: () => { if (maxed) return; this.toggle('answers', key, label, max, exclusive); } };
+  }
+  dMulti(key, label, exclusive) {
+    const on = this.state.d[key].includes(label);
+    return { label, checked: on, border: on ? '#17817A' : '#DCE7E6', bg: on ? '#E9F4F3' : '#FFFFFF', color: on ? '#0E4B46' : '#35555E', onPick: () => this.toggle('d', key, label, null, exclusive) };
+  }
+  renderVals() {
+    const st = this.state, a = st.answers, d = st.d, ph = st.phase;
+    const inr = (this.props.currency ?? 'USD') === 'INR';
+    const icons = {
+      heart: 'M12 21C12 21 4 13.9 4 8.9 4 6.2 6.2 4 8.9 4c1.3 0 2.4.6 3.1 1.5C12.7 4.6 13.8 4 15.1 4 17.8 4 20 6.2 20 8.9c0 5-8 12.1-8 12.1Z',
+      brief: 'M8 7V5.5C8 4.7 8.7 4 9.5 4h5c.8 0 1.5.7 1.5 1.5V7M4 9.5C4 8.1 5.1 7 6.5 7h11C18.9 7 20 8.1 20 9.5v7c0 1.4-1.1 2.5-2.5 2.5h-11C5.1 19 4 17.9 4 16.5v-7ZM4 12.5h16',
+      coin: 'M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17ZM12 6.8v10.4M14.6 9c-.5-.7-1.5-1.2-2.6-1.2-1.5 0-2.7.8-2.7 1.9s1.2 1.7 2.7 1.9 2.7.8 2.7 1.9-1.2 1.9-2.7 1.9c-1.1 0-2.1-.5-2.6-1.2',
+      home: 'M4 11.5 12 4.5l8 7M6.2 9.8v8.7c0 .6.4 1 1 1h9.6c.6 0 1-.4 1-1V9.8M10 19.5v-5.5h4v5.5',
+      leaf: 'M5 19C5 10.5 10.5 5 19 5c0 8.5-5.5 14-14 14ZM8 16c2.6-2.6 5.2-5.2 8-8',
+      spark: 'M12 4l1.9 5.1L19 11l-5.1 1.9L12 18l-1.9-5.1L5 11l5.1-1.9L12 4Z'
+    };
+    const cats = [['Relationships', icons.heart], ['Career', icons.brief], ['Money', icons.coin], ['Property', icons.home], ['Wellbeing', icons.leaf], ['Something else', icons.spark]];
+    const urg = ['Within a few days', 'Within a few weeks', 'Within 1–3 months', 'No fixed timeline', 'I am only exploring'];
+    const src = ['Friends or family', 'Astrologer', 'Therapist or counsellor', 'Coach or subject expert', 'Spiritual practitioner', 'Online search, content or AI', this.NONE, 'Something else'];
+    const spendArr = inr
+      ? ['Nothing', 'Under ₹2,000', '₹2,000–₹7,999', '₹8,000–₹19,999', '₹20,000 or more', 'Prefer not to say']
+      : ['Nothing', 'Less than $25', '$25–$99', '$100–$249', '$250 or more', 'Prefer not to say'];
+    const miss = ['Advice feels too generic', 'I do not know whom to trust', 'No one understands my complete situation', 'Guidance is not practical', 'Different people give conflicting answers', 'There is no follow-up support', 'Privacy is a concern', 'It costs too much', 'Something else'];
+    const deposit = inr ? 'Pay a refundable ₹2,000 deposit' : 'Pay a refundable $25 deposit';
+    const intents = ['Join a paid pilot', deposit, 'Speak with the team before deciding', 'Join the early-access list', 'I would not use this right now'];
+    const thanksMap = {
+      'Join a paid pilot': 'You chose to join a paid pilot — we will contact you first as places open, on the details you shared.',
+      [deposit]: 'You chose the refundable deposit — we will send you a secure payment link on the details you shared.',
+      'Speak with the team before deciding': 'You asked to speak with the team — we will reach out to schedule a short, private call.',
+      'Join the early-access list': 'You are on the early-access list — we will keep you posted as Akashvani opens.',
+      'I would not use this right now': 'Thank you for the honesty — it genuinely helps us build something worth your time.'
+    };
+    const nouns = { Relationships: 'relationship', Career: 'career', Money: 'financial', Property: 'property', Wellbeing: 'wellbeing' };
+    const noun = nouns[a.category] || 'life';
+    const coach = a.category === 'Relationships' ? 'Relationship coach' : 'Coach or subject expert';
+    const dTxtKeys = ['location', 'work', 'trigger', 'happened', 'why', 'painWhy', 'helped', 'stopped', 'outcome', 'expertNeeds', 'distrust', 'unclear', 'priceFair', 'priceCheap', 'priceProof', 'reject159', 'depositWhy', 'missed', 'referral'];
+    const dTxt = {};
+    dTxtKeys.forEach(k => { dTxt[k] = { val: d[k], on: e => this.setD(k, e.target.value) }; });
+    const cc = this.canContinue(), cs = this.canSubmit();
+    const doneLines = [];
+    if (d.bookNow && d.bookNow.indexOf('Yes') === 0) doneLines.push('You said you would book today — you will be the first we contact as pilot places open.');
+    else if (a.intent === 'Join a paid pilot' || a.intent === deposit) doneLines.push(thanksMap[a.intent]);
+    else if (d.contactOk === 'Yes') doneLines.push('We may reach out for a paid pilot or a follow-up conversation, on the details you shared.');
+    doneLines.push('Your detailed answers genuinely shape what we build next.');
+    return {
+      showVisionVal: this.props.showVision ?? true,
+      cardRef: this.cardRef,
+      stepLabel: ph === 'survey' ? st.step + ' of 8' : ph === 'bridge' ? 'Part 1 complete' : ph === 'detail' ? 'Section ' + st.dStep + ' of 8' : 'Complete',
+      progressPct: ph === 'survey' ? (st.step / 8 * 100) + '%' : ph === 'detail' ? (st.dStep / 8 * 100) + '%' : '100%',
+      isSurvey: ph === 'survey', isBridge: ph === 'bridge', isDetail: ph === 'detail', isDone: ph === 'done',
+      isStep1: st.step === 1, isStep2: st.step === 2, isStep3: st.step === 3, isStep4: st.step === 4,
+      isStep5: st.step === 5, isStep6: st.step === 6, isStep7: st.step === 7, isStep8: st.step === 8,
+      isD1: st.dStep === 1, isD2: st.dStep === 2, isD3: st.dStep === 3, isD4: st.dStep === 4,
+      isD5: st.dStep === 5, isD6: st.dStep === 6, isD7: st.dStep === 7, isD8: st.dStep === 8,
+      showNav: ph === 'survey' || ph === 'detail',
+      showBack: (ph === 'survey' && st.step > 1) || (ph === 'detail' && st.dStep > 1),
+      showContinue: (ph === 'survey' && st.step < 8) || (ph === 'detail' && st.dStep < 8),
+      catOpts: cats.map(c => Object.assign(this.single('category', c[0]), { d: c[1] })),
+      decisionVal: a.decision,
+      setDecision: e => this.setAns('decision', e.target.value),
+      diffOpts: [1, 2, 3, 4, 5].map(n => {
+        const on = a.difficulty === n;
+        return { label: String(n), border: on ? '#17817A' : '#DCE7E6', bg: on ? '#17817A' : '#FFFFFF', color: on ? '#FFFFFF' : '#35555E', onPick: () => this.setAns('difficulty', n) };
+      }),
+      urgOpts: urg.map(l => this.single('urgency', l)),
+      srcOpts: src.map(l => this.multi('sources', l, null, this.NONE)),
+      spendOpts: spendArr.map(l => this.single('spend', l)),
+      missOpts: miss.map(l => this.multi('missing', l, 2, null)),
+      intentOpts: intents.map(l => this.single('intent', l)),
+      nameVal: a.name,
+      setName: e => this.setAns('name', e.target.value),
+      contactVal: a.contact,
+      setContact: e => this.setAns('contact', e.target.value),
+      continueBg: cc ? '#17817A' : '#B7CDCA',
+      continueCursor: cc ? 'pointer' : 'not-allowed',
+      submitBg: cs ? '#17817A' : '#B7CDCA',
+      submitCursor: cs ? 'pointer' : 'not-allowed',
+      onContinue: () => {
+        if (!this.canContinue()) return;
+        if (this.state.phase === 'survey') this.go({ step: this.state.step + 1 });
+        else this.go({ dStep: Math.min(8, this.state.dStep + 1) });
+      },
+      onBack: () => {
+        if (this.state.phase === 'survey') this.go({ step: Math.max(1, this.state.step - 1) });
+        else this.go({ dStep: Math.max(1, this.state.dStep - 1) });
+      },
+      onSubmit: () => { if (this.canSubmit()) this.go({ phase: 'bridge' }); },
+      startDetail: () => this.go({ phase: 'detail', dStep: 1 }),
+      skipDetail: () => { this.setState({ phase: 'done' }); try { localStorage.removeItem('akashvani-survey'); } catch (e) {} },
+      onDetailSubmit: () => { this.go({ phase: 'done' }); try { localStorage.removeItem('akashvani-survey'); } catch (e) {} },
+      thanksName: (a.name.trim().split(/\s+/)[0]) || 'friend',
+      thanksLine: thanksMap[a.intent] || 'Your responses are with the Akashvani team. We will reach out shortly.',
+      bridgeTitle: 'Tell us about your ' + noun + ' decision',
+      d2Title: 'Your ' + noun + ' decision, in detail',
+      doneLine: doneLines.join(' '),
+      dTxt,
+      ageOpts: ['Under 25', '25–34', '35–44', '45–54', '55+'].map(l => this.pick('d', 'age', l)),
+      statusOpts: ['Single', 'In a relationship', 'Married', 'Separated', 'Divorced', 'Prefer not to say'].map(l => this.pick('d', 'status', l)),
+      whenOpts: ['Happening now', 'In the past month', 'In the past 6 months', 'In the past year', 'Over a year ago'].map(l => this.pick('d', 'when', l)),
+      delayOpts: ['A few days', 'A few weeks', 'A few months', 'Over a year', 'I am still deciding'].map(l => this.pick('d', 'delay', l)),
+      affectOpts: ['Emotions', 'Work', 'Health', 'Sleep', 'Family life', 'Finances'].map(l => this.dMulti('affected', l, null)),
+      painOpts: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => {
+        const on = d.pain === n;
+        return { label: String(n), border: on ? '#17817A' : '#DCE7E6', bg: on ? '#17817A' : '#FFFFFF', color: on ? '#FFFFFF' : '#35555E', onPick: () => this.setD('pain', n) };
+      }),
+      consultOpts: ['Friends or family', 'Therapist or counsellor', 'Astrologer', coach, 'Lawyer', 'Spiritual practitioner', 'Online content or AI', 'Nobody'].map(l => this.dMulti('consulted', l, 'Nobody')),
+      triedOpts: ['None', '1', '2–3', '4–5', '6 or more'].map(l => this.pick('d', 'tried', l)),
+      timeOpts: ['A few hours', 'A few days', 'Weeks', 'Months', 'Over a year'].map(l => this.pick('d', 'time', l)),
+      moneyOpts: spendArr.map(l => this.pick('d', 'money', l)),
+      wantOpts: ['Clear advice on what to do', 'Validation of my own thinking', 'Help weighing the options', 'Emotional support', 'All of these'].map(l => this.pick('d', 'want', l)),
+      sessionOpts: ['One session would be enough', 'A few follow-ups', 'Ongoing support'].map(l => this.pick('d', 'sessions', l)),
+      trustOpts: ['Relevant qualifications', 'Experience with similar cases', 'Verified reviews', 'A personal referral', 'Strict confidentiality', 'A money-back promise', 'Speaking with them first'].map(l => this.dMulti('trust', l, null)),
+      reviewOpts: ['One trusted expert is enough', 'I would value a second expert reviewing the advice', 'Not sure'].map(l => this.pick('d', 'review', l)),
+      shareOpts: ['Yes, fully', 'Some of it', 'Only after trust is built', 'No'].map(l => this.pick('d', 'share', l)),
+      reactionOpts: ['Very interested', 'Interested', 'Neutral', 'Skeptical', 'Not for me'].map(l => this.pick('d', 'reaction', l)),
+      valuableOpts: ['Speaking with a suitable expert', 'A second expert&rsquo;s perspective'.replace('&rsquo;', '’'), 'The practical written guidance note', 'Follow-up support'].map(l => this.pick('d', 'valuable', l)),
+      astroOpts: ['More useful', 'Less credible', 'No difference'].map(l => this.pick('d', 'astro', l)),
+      prefOpts: ['Astrology-led guidance', 'Practical counselling', 'A combination of both'].map(l => this.pick('d', 'pref', l)),
+      curHint: inr ? 'e.g. ₹5,000' : 'e.g. $80',
+      rejectLabel: inr ? 'If the complete service cost ₹13,000, what would make you reject it?' : 'If the complete service cost $159, what would make you reject it?',
+      depositLabel: inr ? 'Would a refundable ₹2,000 deposit make starting easier?' : 'Would a refundable $25 deposit make starting easier?',
+      depositOpts: ['Yes', 'No', 'Not sure'].map(l => this.pick('d', 'deposit', l)),
+      bookOpts: ['Yes, I would book it now', 'Maybe, after speaking with the team', 'Not right now'].map(l => this.pick('d', 'bookNow', l)),
+      contactOkOpts: ['Yes', 'No'].map(l => this.pick('d', 'contactOk', l))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "akashvani",
+  "version": "1.0.0",
+  "description": "Akashvani — Conscious Living & Spirituality Web Project",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve .",
+    "serve": "npx serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

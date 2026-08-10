@@ -1,0 +1,19 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "investors", "destination": "/investors.html" },
+    { "source": "experiences", "destination": "/experiences.html" },
+    { "source": "research", "destination": "/research.html" },
+    { "source": "vision", "destination": "/research.html" },
+    { "source": "home", "destination": "/index.html" },
+    { "source": "Akashvani Investors.dc", "destination": "/investors.html" },
+    { "source": "Akashvani%20Investors.dc", "destination": "/investors.html" },
+    { "source": "Akashvani Investors.dc.html", "destination": "/investors.html" },
+    { "source": "Akashvani%20Investors.dc.html", "destination": "/investors.html" },
+    { "source": "Akashvani Experiences.dc.html", "destination": "/experiences.html" },
+    { "source": "Akashvani%20Experiences.dc.html", "destination": "/experiences.html" },
+    { "source": "Akashvani Home.dc.html", "destination": "/index.html" },
+    { "source": "Akashvani%20Home.dc.html", "destination": "/index.html" },
+    { "source": "Akashvani.dc.html", "destination": "/research.html" }
+  ]
+}
