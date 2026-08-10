@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: akashvani
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /investors
+        destination: /investors.html
+      - type: rewrite
+        source: /experiences
+        destination: /experiences.html
+      - type: rewrite
+        source: /research
+        destination: /research.html
+      - type: rewrite
+        source: /vision
+        destination: /research.html
+      - type: rewrite
+        source: /home
+        destination: /index.html
