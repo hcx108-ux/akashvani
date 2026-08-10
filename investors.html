@@ -1451,13 +1451,21 @@ a:hover { color: #0F5F5A; }
   // Publish approval to Global Cloud SSE Channel (Works across Incognito, Mobile, PC)
   function publishCloudApproval(email) {
     const clean = email.trim().toLowerCase();
-    const payload = JSON.stringify({ type: 'APPROVE', email: clean, time: Date.now() });
+    const emailKey = encodeURIComponent(clean).replace(/[^a-zA-Z0-9]/g, '_');
 
+    // Channel 1: ntfy simple text POST (No custom headers to avoid CORS preflight)
     try {
       fetch(CLOUD_POST_URL, {
         method: 'POST',
-        headers: { 'Title': 'Akashvani Approval' },
-        body: payload
+        body: 'APPROVE:' + clean
+      }).catch(() => {});
+    } catch(e) {}
+
+    // Channel 2: Cloud Key-Value store backup
+    try {
+      fetch('https://kvdb.io/4yKqPqZgX722U89eB4cK2v/' + emailKey, {
+        method: 'POST',
+        body: 'approved'
       }).catch(() => {});
     } catch(e) {}
   }
@@ -1508,7 +1516,7 @@ a:hover { color: #0F5F5A; }
     const approveEmail = params.get('approve_email') || params.get('approve');
     if (approveEmail) {
       const clean = approveEmail.trim().toLowerCase();
-      addApprovedEmail(clean, true); // Publishes to cloud SSE!
+      addApprovedEmail(clean, true); // Publishes to cloud SSE & KV!
       const reqs = getRequests();
       const match = reqs.find(r => r.email.toLowerCase() === clean);
       if (match) {
@@ -1554,6 +1562,7 @@ a:hover { color: #0F5F5A; }
 
     watcherSeconds = 0;
     const clean = email.trim().toLowerCase();
+    const emailKey = encodeURIComponent(clean).replace(/[^a-zA-Z0-9]/g, '_');
     const timerEl = document.getElementById('livePollingTimer');
 
     // 1. Real-time Server-Sent Events (SSE) Stream (<100ms cross-device & Incognito sync)
@@ -1564,8 +1573,8 @@ a:hover { color: #0F5F5A; }
           try {
             const data = JSON.parse(e.data);
             if (data && data.message) {
-              const parsed = typeof data.message === 'string' ? JSON.parse(data.message) : data.message;
-              if (parsed.email && parsed.email.toLowerCase() === clean && parsed.type === 'APPROVE') {
+              const msg = data.message.trim();
+              if (msg === 'APPROVE:' + clean || msg.toLowerCase().includes(clean)) {
                 if (watcherSse) { watcherSse.close(); watcherSse = null; }
                 addApprovedEmail(clean, false);
                 triggerInstantAutoUnlock(clean);
@@ -1573,15 +1582,13 @@ a:hover { color: #0F5F5A; }
             }
           } catch(err) {}
         };
-        watcherSse.onerror = function() {
-          // SSE reconnects automatically, fallback polling continues below
-        };
+        watcherSse.onerror = function() {};
       }
     } catch(e) {}
 
-    // 2. High-Frequency Polling every 1.5s (Local + Cloud JSON check)
+    // 2. High-Frequency Polling every 1.2s (Local + Cloud ntfy + KV check)
     watcherInterval = setInterval(async () => {
-      watcherSeconds += 1.5;
+      watcherSeconds += 1.2;
       if (timerEl) timerEl.textContent = 'Active · ' + Math.round(watcherSeconds) + 's';
 
       // Check A: LocalStorage approved list
@@ -1611,8 +1618,8 @@ a:hover { color: #0F5F5A; }
             try {
               const item = JSON.parse(line);
               if (item && item.message) {
-                const parsed = typeof item.message === 'string' ? JSON.parse(item.message) : item.message;
-                if (parsed.email && parsed.email.toLowerCase() === clean && parsed.type === 'APPROVE') {
+                const msg = item.message.trim();
+                if (msg === 'APPROVE:' + clean || msg.toLowerCase().includes(clean)) {
                   stopWatcher();
                   addApprovedEmail(clean, false);
                   triggerInstantAutoUnlock(clean);
@@ -1623,7 +1630,21 @@ a:hover { color: #0F5F5A; }
           }
         }
       } catch(err) {}
-    }, 1500);
+
+      // Check D: Cloud KV Store Backup
+      try {
+        const kvRes = await fetch('https://kvdb.io/4yKqPqZgX722U89eB4cK2v/' + emailKey);
+        if (kvRes.ok) {
+          const val = await kvRes.text();
+          if (val && val.includes('approved')) {
+            stopWatcher();
+            addApprovedEmail(clean, false);
+            triggerInstantAutoUnlock(clean);
+            return;
+          }
+        }
+      } catch(err) {}
+    }, 1200);
   }
 
   function stopWatcher() {
