@@ -1357,9 +1357,12 @@ a:hover { color: #0F5F5A; }
   const STORAGE_KEY_REQUESTS = 'akashvani_investor_requests';
   const STORAGE_KEY_APPROVED = 'akashvani_approved_emails';
   const STORAGE_KEY_SESSION = 'akashvani_investor_session';
-  const CLOUD_SYNC_URL = 'https://api.restful-api.dev/objects';
+  const CLOUD_CHANNEL = 'akashvani_approvals_vikas_2026';
+  const CLOUD_SSE_URL = 'https://ntfy.sh/' + CLOUD_CHANNEL + '/sse';
+  const CLOUD_POLL_URL = 'https://ntfy.sh/' + CLOUD_CHANNEL + '/json?poll=1';
+  const CLOUD_POST_URL = 'https://ntfy.sh/' + CLOUD_CHANNEL;
 
-  // Broadcast channel for instantaneous cross-tab live synchronization
+  // Broadcast channel for local same-context cross-tab synchronization
   let broadcastChannel = null;
   try {
     broadcastChannel = new BroadcastChannel('akashvani_approval_channel');
@@ -1367,7 +1370,7 @@ a:hover { color: #0F5F5A; }
       if (ev.data && ev.data.type === 'APPROVAL_EVENT') {
         const approvedEmail = ev.data.email;
         if (approvedEmail) {
-          addApprovedEmail(approvedEmail);
+          addApprovedEmail(approvedEmail, false);
           const lastEmail = getActiveWaitingEmail();
           if (lastEmail && lastEmail.toLowerCase() === approvedEmail.toLowerCase()) {
             triggerInstantAutoUnlock(approvedEmail);
@@ -1377,7 +1380,7 @@ a:hover { color: #0F5F5A; }
     };
   } catch(e) {}
 
-  // Listen to standard storage events across tabs
+  // Listen to storage events across tabs in same browser profile
   window.addEventListener('storage', function(e) {
     if (e.key === STORAGE_KEY_APPROVED || e.key === STORAGE_KEY_REQUESTS) {
       const lastEmail = getActiveWaitingEmail();
@@ -1388,6 +1391,7 @@ a:hover { color: #0F5F5A; }
   });
 
   let watcherInterval = null;
+  let watcherSse = null;
   let watcherSeconds = 0;
   let isUnlockingInProgress = false;
 
@@ -1444,18 +1448,36 @@ a:hover { color: #0F5F5A; }
     } catch(e) { return []; }
   }
 
-  function addApprovedEmail(email) {
+  // Publish approval to Global Cloud SSE Channel (Works across Incognito, Mobile, PC)
+  function publishCloudApproval(email) {
+    const clean = email.trim().toLowerCase();
+    const payload = JSON.stringify({ type: 'APPROVE', email: clean, time: Date.now() });
+
+    try {
+      fetch(CLOUD_POST_URL, {
+        method: 'POST',
+        headers: { 'Title': 'Akashvani Approval' },
+        body: payload
+      }).catch(() => {});
+    } catch(e) {}
+  }
+
+  function addApprovedEmail(email, shouldPublishCloud = true) {
     const list = getApprovedEmails();
     const clean = email.trim().toLowerCase();
     if (!list.includes(clean)) {
       list.push(clean);
       localStorage.setItem(STORAGE_KEY_APPROVED, JSON.stringify(list));
     }
-    // Broadcast event to all open tabs
+    // Broadcast locally to tabs
     if (broadcastChannel) {
       try {
         broadcastChannel.postMessage({ type: 'APPROVAL_EVENT', email: clean, time: Date.now() });
       } catch(e) {}
+    }
+    // Broadcast to global cloud (Incognito + cross-device)
+    if (shouldPublishCloud) {
+      publishCloudApproval(clean);
     }
   }
 
@@ -1486,14 +1508,14 @@ a:hover { color: #0F5F5A; }
     const approveEmail = params.get('approve_email') || params.get('approve');
     if (approveEmail) {
       const clean = approveEmail.trim().toLowerCase();
-      addApprovedEmail(clean);
+      addApprovedEmail(clean, true); // Publishes to cloud SSE!
       const reqs = getRequests();
       const match = reqs.find(r => r.email.toLowerCase() === clean);
       if (match) {
         match.status = 'approved';
         saveRequests(reqs);
       }
-      showToast('✅ Access Approved for ' + clean + '! Investor portal unlocked.');
+      showToast('✅ Access Approved for ' + clean + '! Syncing to all open user tabs...');
       unlockPage(clean, 'investor');
       return true;
     }
@@ -1511,7 +1533,7 @@ a:hover { color: #0F5F5A; }
     }
     const paramEmail = params.get('email') || params.get('approved_email');
     if (paramEmail && (getApprovedEmails().includes(paramEmail.toLowerCase()) || params.get('token'))) {
-      addApprovedEmail(paramEmail);
+      addApprovedEmail(paramEmail, true);
       return { unlocked: true, email: paramEmail, role: 'investor' };
     }
 
@@ -1525,41 +1547,95 @@ a:hover { color: #0F5F5A; }
     return { unlocked: false };
   }
 
-  // Real-time Live Watcher for Automatic Unlock
+  // Real-time Live Watcher for Automatic Unlock (Supports Incognito, Mobile, Desktop)
   function startLiveApprovalWatcher(email) {
     if (watcherInterval) clearInterval(watcherInterval);
+    if (watcherSse) { try { watcherSse.close(); } catch(e) {} }
+
     watcherSeconds = 0;
+    const clean = email.trim().toLowerCase();
     const timerEl = document.getElementById('livePollingTimer');
 
-    // Poll every 2 seconds for instantaneous approval detection
-    watcherInterval = setInterval(() => {
-      watcherSeconds += 2;
-      if (timerEl) timerEl.textContent = 'Active · ' + watcherSeconds + 's';
+    // 1. Real-time Server-Sent Events (SSE) Stream (<100ms cross-device & Incognito sync)
+    try {
+      if (window.EventSource) {
+        watcherSse = new EventSource(CLOUD_SSE_URL);
+        watcherSse.onmessage = function(e) {
+          try {
+            const data = JSON.parse(e.data);
+            if (data && data.message) {
+              const parsed = typeof data.message === 'string' ? JSON.parse(data.message) : data.message;
+              if (parsed.email && parsed.email.toLowerCase() === clean && parsed.type === 'APPROVE') {
+                if (watcherSse) { watcherSse.close(); watcherSse = null; }
+                addApprovedEmail(clean, false);
+                triggerInstantAutoUnlock(clean);
+              }
+            }
+          } catch(err) {}
+        };
+        watcherSse.onerror = function() {
+          // SSE reconnects automatically, fallback polling continues below
+        };
+      }
+    } catch(e) {}
 
-      const clean = email.trim().toLowerCase();
-      // Check 1: LocalStorage approved emails
+    // 2. High-Frequency Polling every 1.5s (Local + Cloud JSON check)
+    watcherInterval = setInterval(async () => {
+      watcherSeconds += 1.5;
+      if (timerEl) timerEl.textContent = 'Active · ' + Math.round(watcherSeconds) + 's';
+
+      // Check A: LocalStorage approved list
       if (getApprovedEmails().includes(clean)) {
-        clearInterval(watcherInterval);
+        stopWatcher();
         triggerInstantAutoUnlock(clean);
         return;
       }
 
-      // Check 2: Requests list status
+      // Check B: Requests list status
       const req = getRequests().find(r => r.email.toLowerCase() === clean);
       if (req && req.status === 'approved') {
-        clearInterval(watcherInterval);
-        addApprovedEmail(clean);
+        stopWatcher();
+        addApprovedEmail(clean, false);
         triggerInstantAutoUnlock(clean);
         return;
       }
-    }, 2000);
+
+      // Check C: Cloud SSE JSON Poll (Cross-device / Incognito backup)
+      try {
+        const res = await fetch(CLOUD_POLL_URL);
+        if (res.ok) {
+          const text = await res.text();
+          const lines = text.trim().split('\n');
+          for (const line of lines) {
+            if (!line) continue;
+            try {
+              const item = JSON.parse(line);
+              if (item && item.message) {
+                const parsed = typeof item.message === 'string' ? JSON.parse(item.message) : item.message;
+                if (parsed.email && parsed.email.toLowerCase() === clean && parsed.type === 'APPROVE') {
+                  stopWatcher();
+                  addApprovedEmail(clean, false);
+                  triggerInstantAutoUnlock(clean);
+                  return;
+                }
+              }
+            } catch(err) {}
+          }
+        }
+      } catch(err) {}
+    }, 1500);
+  }
+
+  function stopWatcher() {
+    if (watcherInterval) { clearInterval(watcherInterval); watcherInterval = null; }
+    if (watcherSse) { try { watcherSse.close(); } catch(e) {} watcherSse = null; }
   }
 
   function triggerInstantAutoUnlock(email) {
     if (isUnlockingInProgress) return;
     isUnlockingInProgress = true;
 
-    if (watcherInterval) clearInterval(watcherInterval);
+    stopWatcher();
 
     // 1. Update Tracker Steps visually
     const step2 = document.getElementById('trackStep2');
@@ -1626,7 +1702,7 @@ a:hover { color: #0F5F5A; }
   }
 
   window.resetRequestView = function() {
-    if (watcherInterval) clearInterval(watcherInterval);
+    stopWatcher();
     const subView = document.getElementById('gateViewSubmitted');
     const reqView = document.getElementById('gateViewRequest');
     const overlay = document.getElementById('unlockCelebrationOverlay');
@@ -1742,22 +1818,45 @@ a:hover { color: #0F5F5A; }
     });
   };
 
-  window.checkSubmittedStatus = function() {
+  window.checkSubmittedStatus = async function() {
     const lastEmail = getActiveWaitingEmail();
     if (!lastEmail) {
       alert('Please enter your email in the request box.');
       return;
     }
 
-    if (getApprovedEmails().includes(lastEmail.toLowerCase())) {
-      triggerInstantAutoUnlock(lastEmail);
+    const clean = lastEmail.trim().toLowerCase();
+
+    // Check Cloud directly
+    try {
+      const res = await fetch(CLOUD_POLL_URL);
+      if (res.ok) {
+        const text = await res.text();
+        const lines = text.trim().split('\n');
+        for (const line of lines) {
+          if (!line) continue;
+          const item = JSON.parse(line);
+          if (item && item.message) {
+            const parsed = typeof item.message === 'string' ? JSON.parse(item.message) : item.message;
+            if (parsed.email && parsed.email.toLowerCase() === clean && parsed.type === 'APPROVE') {
+              addApprovedEmail(clean, false);
+              triggerInstantAutoUnlock(clean);
+              return;
+            }
+          }
+        }
+      }
+    } catch(e) {}
+
+    if (getApprovedEmails().includes(clean)) {
+      triggerInstantAutoUnlock(clean);
     } else {
-      const req = getRequests().find(r => r.email.toLowerCase() === lastEmail.toLowerCase());
+      const req = getRequests().find(r => r.email.toLowerCase() === clean);
       if (req && req.status === 'approved') {
-        addApprovedEmail(lastEmail);
-        triggerInstantAutoUnlock(lastEmail);
+        addApprovedEmail(clean, false);
+        triggerInstantAutoUnlock(clean);
       } else {
-        showToast('⏳ Request (' + lastEmail + ') is still awaiting Admin approval.');
+        showToast('⏳ Request (' + clean + ') is still awaiting Admin approval.');
       }
     }
   };
@@ -1786,7 +1885,7 @@ a:hover { color: #0F5F5A; }
       return;
     }
 
-    addApprovedEmail(email);
+    addApprovedEmail(email, true); // Publishes to cloud SSE!
 
     // Update matching request status
     const reqs = getRequests();
@@ -1809,7 +1908,7 @@ a:hover { color: #0F5F5A; }
 
     input.value = '';
     renderAdminDashboard();
-    showToast('✅ ' + email + ' has been approved! (Auto-unlocking if active)');
+    showToast('✅ ' + email + ' has been approved! (Auto-unlocking user in real-time)');
   };
 
   window.approveRequest = function(id) {
@@ -1817,7 +1916,7 @@ a:hover { color: #0F5F5A; }
     const req = reqs.find(r => r.id === id);
     if (req) {
       req.status = 'approved';
-      addApprovedEmail(req.email);
+      addApprovedEmail(req.email, true); // Publishes to cloud SSE!
       saveRequests(reqs);
       renderAdminDashboard();
       showToast('✅ Approved access for ' + req.email + ' (Auto-unlocking user screen)');
